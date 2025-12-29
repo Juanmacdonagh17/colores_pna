@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paletas de colores de los emblemas de Parques Nacionales Argentinos</title>
+
+  <link rel="icon" type="image/svg+xml" href="logo_web.svg">
+
+  <style>
+    :root { --maxw: 1280px; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#C76334; color:#e8e8e8; }
+    header { padding: 28px 16px 14px; border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(11,12,16,.9); backdrop-filter: blur(8px); }
+    .wrap { max-width: var(--maxw); margin: 0 auto; }
+    
+ 
+    
+    h1 { margin: 0 0 10px; font-size: 20px; font-weight: 650; }
+    .controls { display:flex; gap:10px; flex-wrap: wrap; }
+
+
+    input, select {
+      background:#11131a; color:#e8e8e8; border:1px solid rgba(255,255,255,.12);
+      padding: 10px 12px; border-radius: 12px; outline: none;
+    }
+
+    input { flex: 1 1 260px; }
+    select { flex: 0 0 220px; }
+
+    main { padding: 18px 16px 40px; }
+    .grid{
+        display:grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 1? 2? o con una opcion*/
+        gap: 18px;
+    }
+
+    
+    @media (max-width: 900px){
+        .grid{ grid-template-columns: 1fr; }
+    }
+    .card {
+      background:#2A3C54; border:1px solid rgba(255,255,255,.10); border-radius: 18px;
+      overflow:hidden; box-shadow: 0 8px 30px rgba(0,0,0,.25);
+    }
+    .top { display:flex; gap:12px; padding: 14px; align-items:center; }
+    .logo {
+      width: 156px; height: 156px; border-radius: 42px; background:#2A3C54;
+      display:grid; place-items:center; overflow:hidden; flex: 0 0 156px;
+      border:1px solid #2A3C54;
+    }
+    .logo img { width: 100%; height: 100%; object-fit: cover; }
+    .meta { min-width: 0; }
+    .name { font-weight: 700; margin: 0; font-size: 16px; line-height: 1.2; }
+    .sub { margin: 4px 0 0; font-size: 13px; opacity:.85; display:flex; gap:10px; flex-wrap: wrap; }
+    .tag { padding: 2px 8px; border:1px solid rgba(255,255,255,.12); border-radius: 999px; }
+    .pal { display:grid; grid-template-columns: repeat(6, 1fr); gap: 0; }
+    .swatch {
+      position: relative; aspect-ratio: 1 / 1; cursor: pointer;
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .swatch:nth-child(6n) { border-right: none; }
+    .swatch span {
+      position:absolute; left:8px; bottom:8px; font-size: 11px;
+      background: rgba(0,0,0,.35); padding: 2px 6px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+    }
+    .footer { padding: 10px 14px 14px; display:flex; justify-content: space-between; gap:10px; align-items:center; }
+    .link { color:#b7d1ff; text-decoration:none; font-size: 13px; }
+    .count { font-size: 13px; opacity: .8; }
+    .toast {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      background: rgba(20,22,30,.92); border:1px solid rgba(255,255,255,.14);
+      padding: 10px 12px; border-radius: 999px; font-size: 13px;
+      opacity: 0; pointer-events:none; transition: opacity .18s ease;
+    }
+    .toast.show { opacity: 1; }
+    
+    /* bigger logos when clicked*/
+
+    .modal { position: fixed; inset: 0; display: none; z-index: 9999; }
+    .modal.show { display: block; }
+
+    .modal__backdrop {
+        position: absolute; inset: 0;
+        background: rgba(0,0,0,.65);
+    }
+
+    .modal__panel{
+        position: relative;
+        max-width: min(900px, 92vw);
+        max-height: 92vh;
+        margin: 4vh auto;
+        background: #0f1117;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 18px;
+        padding: 14px;
+        box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+
+    #logoModalImg{
+        display: block;
+        max-width: 100%;
+        max-height: calc(92vh - 60px);
+        margin: 0 auto;
+        object-fit: contain;
+    }
+
+    .modal__close{
+        position: absolute;
+        top: 10px; right: 10px;
+        border: none;
+        background: transparent;
+        color: #e8e8e8;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .fab{
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+
+        width: auto;
+        height: auto;
+
+        background: transparent;
+        border: none;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        cursor: pointer;
+        z-index: 9998;
+    }
+    .fab{ bottom: 72px; }
+    .fab img{
+        width: 48px;      /* adjust size here */
+        height: 48px;
+        display: block;
+        object-fit: contain;
+    }
+
+    
+    .modal__panel--pdf{
+        width: min(1100px, 94vw);
+        height: min(86vh, 900px);
+        padding: 10px;
+    }
+
+    #pdfFrame{
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 14px;
+        background: #0b0c10;
+    }
+    .fixed-footer{
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 10px 14px;
+        font-size: 12px;
+        line-height: 1.25;
+        text-align: center;
+        background: rgba(11,12,16,.92);
+        backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(255,255,255,.10);
+        z-index: 9997;
+    }
+
+   
+    main{
+        padding-bottom: 70px; 
+    }
+  </style>
+</head>
+
+
+<body>
+  <header>
+    
+    <div class="wrap">
+     
+      <h1>Paletas de colores de los emblemas de Parques Nacionales Argentinos</h1>
+      <div class="controls">
+        <input id="q" placeholder="Buscar por nombre, región, provincia, tipo:" />
+        <select id="region"><option value="">Todas las regiones</option></select>
+        <select id="prov"><option value="">Todas las provincias</option></select>
+        <select id="tipo"><option value="">Todos los tipos</option></select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="count" id="count"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast">Copiado:</div>
+
+  <div id="logoModal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="1"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true">
+      <button class="modal__close" type="button" data-close="1">x</button>
+      <img id="logoModalImg" alt="Logo preview" />
+    </div>
+  </div>
+
+  <button id="pdfFab" class="fab" type="button" aria-label="Abrir mapa (PDF)">
+    <img src="mapa_arg.svg" alt="" />
+  </button>
+    <div id="pdfModal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="1"></div>
+    <div class="modal__panel modal__panel--pdf" role="dialog" aria-modal="true" aria-label="Mapa de Parques Nacionales (PDF)">
+        <button class="modal__close" type="button" data-close="1" aria-label="Cerrar">x</button>
+        <iframe
+        id="pdfFrame"
+        title="Mapa (PDF)"
+        src="mapa_pn_arg.pdf"
+        loading="lazy">
+        </iframe>
+    </div>
+    </div>
+    <footer class="fixed-footer">
+        wokr in progress. todas las imagenes pertenecen a Jefatura de Gabinete de Ministros / Parques Nacionales Argentina. Con amor y respeto a la naturaleza.
+        La soberanía de un país esta en sus acentos, sabores, colores, en la fauna, la flora, en la gente que lo habita y la defiende. contacto: macjuan17@gmail.com
+    </footer>
+  <script>
+
+    // path local al repo
+    const CSV_PATH = "parques_data.csv";
+
+    const REGION_ORDER = [ // orden de Norte a Sur
+        "Noroeste",
+        "Noreste",
+        "Centro",
+        "Patagonia",
+        "Patagonia Austral",
+        "Mar Argentino"
+        ];
+
+    const regionRank = (r) => {
+    const i = REGION_ORDER.indexOf(r);
+    return i === -1 ? 999 : i;
+    };
+
+    // función CSV parser 
+    function parseCSV(text) {
+      const rows = [];
+      let row = [], cur = "", inQuotes = false;
+      for (let i = 0; i < text.length; i++) {   
+        const c = text[i], n = text[i+1];
+        if (c === '"' ) {
+          if (inQuotes && n === '"') { cur += '"'; i++; }
+          else inQuotes = !inQuotes;
+        } else if (!inQuotes && c === ",") {
+          row.push(cur); cur = "";
+        } else if (!inQuotes && (c === "\n" || c === "\r")) {
+          if (c === "\r" && n === "\n") i++;
+          row.push(cur); rows.push(row);
+          row = []; cur = "";
+        } else {
+          cur += c;
+        }
+      }
+      if (cur.length || row.length) { row.push(cur); rows.push(row); }
+      const header = rows.shift().map(h => h.trim());
+      return rows
+        .filter(r => r.some(x => String(x).trim() !== ""))
+        .map(r => Object.fromEntries(header.map((h, idx) => [h, (r[idx] ?? "").trim()])));
+    }
+
+    function uniq(arr) {
+      return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    }
+
+    function norm(s) { return (s ?? "").toLowerCase(); }
+
+    // funciones para los colores y hex
+
+    function pickColorFields(obj) {
+     
+      const keys = Object.keys(obj);
+      const cKeys = keys.filter(k => /^c\d+$/i.test(k)).sort((a,b)=>parseInt(a.slice(1))-parseInt(b.slice(1)));
+      if (cKeys.length) return cKeys.map(k => obj[k]).filter(Boolean);
+
+      const maybeHex = keys
+        .filter(k => /color|colour|hex/i.test(k))
+        .flatMap(k => obj[k].split(/[\s;|]+/).filter(Boolean));
+      if (maybeHex.length) return maybeHex;
+
+      // fallback
+      const vals = Object.values(obj).filter(v => /^#?[0-9a-f]{6}$/i.test(v));
+      return vals;
+    }
+
+    function ensureHex(s) {
+      if (!s) return "";
+      const t = s.trim();
+      if (/^#[0-9a-f]{6}$/i.test(t)) return t.toUpperCase();
+      if (/^[0-9a-f]{6}$/i.test(t)) return ("#" + t).toUpperCase();
+      return t; 
+    }
+
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(()=>el.classList.remove("show"), 900);
+    }
+
+    async function copy(text) {
+      try { await navigator.clipboard.writeText(text); toast(`Copied ${text}`); }
+      catch { toast("Copy failed"); }
+    }
+
+    // app con main logic
+
+    let DATA = [];
+
+    function renderFilters() {
+      const regions = uniq(DATA.map(d => d["Región"] || d["Region"]))
+        .sort((a,b) => regionRank(a) - regionRank(b) || a.localeCompare(b));
+      const provs   = uniq(DATA.map(d => d["Provincia"]));
+      const tipos   = uniq(DATA.map(d => d["Tipo"]));
+
+      const selR = document.getElementById("region");
+      const selP = document.getElementById("prov");
+      const selT = document.getElementById("tipo");
+
+      for (const v of regions) selR.append(new Option(v, v));
+      for (const v of provs)   selP.append(new Option(v, v));
+      for (const v of tipos)   selT.append(new Option(v, v));
+    }
+
+    // filtros 
+    function matchesFilters(d) {
+      const q = norm(document.getElementById("q").value);
+      const r = document.getElementById("region").value;
+      const p = document.getElementById("prov").value;
+      const t = document.getElementById("tipo").value;
+
+      if (r && (d["Región"] || d["Region"]) !== r) return false;
+      if (p && d["Provincia"] !== p) return false;
+      if (t && d["Tipo"] !== t) return false;
+
+      if (!q) return true;
+      const blob = [
+        d["Nombre"], d["Tipo"], d["Región"] || d["Region"], d["Provincia"]
+      ].map(norm).join(" | ");
+      return blob.includes(q);
+    }
+
+    // func. para los html de cada tarjeta
+    function cardHTML(d) {
+      const nombre = d["Nombre"] || "(Unnamed)";
+      const tipo = d["Tipo"] || "";
+      const region = d["Región"] || d["Region"] || "";
+      const prov = d["Provincia"] || "";
+      const logo = d["Logo"] || "";
+      const link = d["Link"] || "";
+
+      const colorsRaw = pickColorFields(d).slice(0, 12).map(ensureHex);
+      const colors = colorsRaw.length ? colorsRaw : Array.from({length:12}, ()=>"#000000");
+
+      const logoHTML = logo
+            ? `<img class="park-logo" src="${logo}" alt="${nombre} logo" loading="lazy" data-logo="${logo}" style="cursor: zoom-in" onerror="this.remove();">`
+        : `<span style="opacity:.7;font-size:11px;">logo</span>`;
+
+      const tags = [tipo, region, prov].filter(Boolean)
+        .map(x => `<span class="tag">${x}</span>`).join("");
+
+      const swatches = colors.map(c => `
+        <div class="swatch" style="background:${c}" data-hex="${c}">
+          <span>${c}</span>
+        </div>
+      `).join("");
+
+      const linkHTML = link
+        ? `<a class="link" href="${link}" target="_blank" rel="noreferrer">Ficha del área protegida | Argentina.gob.ar</a>`
+        : `<span style="opacity:.6;font-size:13px;">No link???</span>`;
+
+      return `
+        <article class="card">
+          <div class="top">
+            <div class="logo">${logoHTML}</div>
+            <div class="meta">
+              <p class="name">${nombre}</p>
+              <p class="sub">${tags}</p>
+            </div>
+          </div>
+          <div class="pal">${swatches}</div>
+          <div class="footer">
+            ${linkHTML}
+            <a class="link" href="#" data-copy="${colors.join(', ')}">Copiar colores</a>
+          </div>
+        </article>
+      `;
+    }
+
+    // funciones para los logos grandes
+    function openLogoModal(src, altText) {
+        const modal = document.getElementById("logoModal");
+        const img = document.getElementById("logoModalImg");
+        img.src = src;
+        img.alt = altText || "Logo preview";
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLogoModal() {
+        const modal = document.getElementById("logoModal");
+        const img = document.getElementById("logoModalImg");
+        modal.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+        img.src = "";
+    }
+
+    // funcion para el render de todo
+    function render() {
+    const filtered = DATA
+        .filter(matchesFilters)
+        .sort((a, b) => {
+        const ra = a["Región"] || a["Region"] || "";
+        const rb = b["Región"] || b["Region"] || "";
+
+        // custom order por región
+        const byRegion = regionRank(ra) - regionRank(rb);
+        if (byRegion !== 0) return byRegion;
+
+        // alfabetico
+        return (a["Nombre"] || "").localeCompare(b["Nombre"] || "");
+        });
+
+    // esto lo debería mostrar de forma más dinamica     
+    // document.getElementById("count").textContent = `${filtered.length} / ${DATA.length} parks`;
+
+    const grid = document.getElementById("grid");
+    grid.innerHTML = filtered.map(cardHTML).join("");
+
+    // copy swatch or full palette -> funciona en uavi para probar palletes
+    grid.querySelectorAll(".swatch").forEach(el => {
+        el.addEventListener("click", () => copy(el.dataset.hex));
+    });
+
+    grid.querySelectorAll("[data-copy]").forEach(a => {
+        a.addEventListener("click", (e) => {
+        e.preventDefault();
+        copy(a.dataset.copy);
+        });
+    });
+
+    // open and close logos (big, acá tengo que mejorar y agregar cosas. por ahí añadir descripción?)
+
+    grid.querySelectorAll(".park-logo").forEach(img => {
+        img.addEventListener("click", () => openLogoModal(img.dataset.logo, img.alt));
+    });
+    document.getElementById("logoModal").querySelectorAll("[data-close]")
+    .forEach(el => el.addEventListener("click", closeLogoModal));
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLogoModal();
+    });
+    }
+
+    // abrir y cerrar el PDF
+    function openPdfModal() {
+        const modal = document.getElementById("pdfModal");
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+    }
+    function closePdfModal() {
+        const modal = document.getElementById("pdfModal");
+        modal.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+    }
+
+    document.getElementById("pdfFab").addEventListener("click", openPdfModal);
+
+    document.getElementById("pdfModal").querySelectorAll("[data-close]").forEach(el => {
+    el.addEventListener("click", closePdfModal);
+    });
+
+    document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closePdfModal();
+    });
+
+
+    async function init() {
+      const res = await fetch(CSV_PATH);
+      if (!res.ok) throw new Error(`Failed to fetch ${CSV_PATH}`);
+      const text = await res.text();
+      DATA = parseCSV(text);
+      renderFilters();
+      ["q","region","prov","tipo"].forEach(id => {
+        document.getElementById(id).addEventListener("input", render);
+        document.getElementById(id).addEventListener("change", render);
+      });
+      render();
+    }
+
+    init().catch(err => {
+      document.getElementById("grid").innerHTML =
+        `<div style="opacity:.85">Error loading CSV: ${String(err.message || err)}</div>`;
+    });
+  </script>
+</body>
+</html>

@@ -467,7 +467,7 @@
       const region = d["Región"] || d["Region"] || ""; // me puedo comer varias tildes
       const prov = d["Provincia"] || "";
       const logo = d["Logo"] || "";
-      const link = d["Link"] || ""; // no anda??
+      const link = d["Link"] || ""; // no anda?? tenia el csv duplicado... 
 
       const colorsRaw = pickColorFields(d).slice(0, 12).map(ensureHex);
       const colors = colorsRaw.length ? colorsRaw : Array.from({length:12}, ()=>"#000000");
@@ -486,7 +486,7 @@
       `).join("");
 
       const linkHTML = link
-        ? `<a class="link" href="${link}" target="_blank" rel="noreferrer">${link}"</a>`
+        ? `<a class="link" href="${link}" target="_blank" rel="noreferrer">Ficha del área protegida | Argentina.gob.ar</a>`
         : `<span style="opacity:.6;font-size:13px;">No link???</span>`;
 
       return `
@@ -595,14 +595,14 @@
 
 
     async function init() {
-      // const res = await fetch(CSV_PATH);
-      const res = await fetch(`${CSV_PATH}?v=${Date.now()}`); // cambiar esto ?
+      const res = await fetch(CSV_PATH);
+      // const res = await fetch(`${CSV_PATH}?v=${Date.now()}`); // cambiar esto ?
       if (!res.ok) throw new Error(`Failed to fetch ${CSV_PATH}`);
       const text = await res.text();
       DATA = parseCSV(text);
-      console.log("header keys:", Object.keys(DATA[0] || {}));
-      console.log("row0 Link:", DATA[0]?.Link);
-      console.log("row0 full:", DATA[0]);
+      // console.log("header keys:", Object.keys(DATA[0] || {}));
+      // console.log("row0 Link:", DATA[0]?.Link);
+      // console.log("row0 full:", DATA[0]);
       renderFilters();
       ["q","region","prov","tipo"].forEach(id => {
         document.getElementById(id).addEventListener("input", render);

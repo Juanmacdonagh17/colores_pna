@@ -131,7 +131,6 @@
     }
     .toast.show { opacity: 1; }
     
-    /* bigger logos when clicked*/
 
     .modal { position: fixed; inset: 0; display: none; z-index: 9999; }
     .modal.show { display: block; }
@@ -468,7 +467,7 @@
       const region = d["Región"] || d["Region"] || "";
       const prov = d["Provincia"] || "";
       const logo = d["Logo"] || "";
-      const link = d["Link"] || "";
+      const link = d["Link"] || ""; // no anda??
 
       const colorsRaw = pickColorFields(d).slice(0, 12).map(ensureHex);
       const colors = colorsRaw.length ? colorsRaw : Array.from({length:12}, ()=>"#000000");

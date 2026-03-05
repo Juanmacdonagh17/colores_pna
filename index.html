@@ -226,7 +226,39 @@
         z-index: 9997;
     }
 
+    .footer-close {
+        position: absolute;
+        right: 15px;
+        top: 2px;
+        background: none;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+        color: white;
+    }
    
+  .logo-btn{
+      position: fixed;
+      top: 183px;
+      left: 430px;
+      width: 44px;          
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      text-decoration: none;
+      z-index: 9999;
+    }
+
+    .logo-btn img{
+      width: 40%;
+      height: 40%;
+      object-fit: contain;
+      display: block;
+      cursor: pointer;
+    }
+
+
     main{
         padding-bottom: 70px; 
     }
@@ -253,9 +285,11 @@
       </h1>
       <p class="intro">
         La soberanía de un país esta en sus acentos, sabores, colores, en la fauna, la flora, en la gente que lo habita y la defiende.
-        Proyecto con fines educativos y de investigación. 
+        Proyecto sin fines de lucro, con fines educativos y de investigación. probá las paletas acá:
       </p>
-      
+      <a href="https://juanmacdonagh17.github.io/uavi/" class="logo-btn" aria-label="waves", target="_blank">
+          <img src="logo_web.svg" alt="uavi logo" />  
+      </a>
       
       <div class="controls">
 
@@ -305,10 +339,10 @@
         </iframe>
     </div>
     </div>
-    <footer class="fixed-footer">
-        wokr in progress. todas las imagenes pertenecen a Jefatura de Gabinete de Ministros / Parques Nacionales Argentina. Con amor y respeto a la naturaleza.
-        contacto: macjuan17@gmail.com
-        podes probar las paletas en uavi: https://juanmacdonagh17.github.io/uavi/
+    <footer class="fixed-footer" id="site-footer">
+        <button class="footer-close" onclick="closeFooter()">×</button>
+        wokr in progress. todas las imagenes pertenecen a Jefatura de Gabinete de Ministros / Parques Nacionales Argentina. <br>
+        Con amor y respeto a la naturaleza. contacto: macjuan17@gmail.com
     </footer>
   <script>
 

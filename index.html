@@ -11,207 +11,347 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barrio&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-
-
-
   <style>
     :root { --maxw: 1280px; }
-    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#C76334; color:#e8e8e8; }
-    header { padding: 28px 16px 14px; border-bottom: 1px solid rgba(255,255,255,.08); background: #0000006b; backdrop-filter: blur(8px); }
-    .wrap { max-width: var(--maxw); margin: 0 auto; }
-    
- 
-    
-  h1{
-    font-family: "Barrio", system-ui, sans-serif;
-    font-size: clamp(34px, 6vw, 62px);
-    line-height: 1.1;
-    margin: 0 0 10px;
-  }
 
-  .rainbow-title span{ display:inline-block; margin-right: .22em; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#C76334;
+      color:#e8e8e8;
+    }
 
-  /* acá podría hacer que cambien al azar cada rato por ej */
-  .rainbow-title span:nth-child(1){ color:#DA3948; }
-  .rainbow-title span:nth-child(2){ color:#F7DA4D; }
-  .rainbow-title span:nth-child(3){ color:#438A4F; }
-  .rainbow-title span:nth-child(4){ color:#A0D5F2; }
-  .rainbow-title span:nth-child(5){ color:#B4747C; }
-  .rainbow-title span:nth-child(6){ color:#5E6769; }
-  .rainbow-title span:nth-child(7){ color:#E2C967; }
-  .rainbow-title span:nth-child(8){ color:#90BE6D; }
-  .rainbow-title span:nth-child(9){ color:#BC3F42; }
-  .rainbow-title span:nth-child(10){ color:#F7DC43; }
+    header {
+      padding: 28px 16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: #0000006b;
+      backdrop-filter: blur(8px);
+    }
 
-  .controls{
-    display:flex;
-    gap:10px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
 
-  .intro{
-    margin: 0 0 14px;
-    max-width: 900px;
-    font-size: 14px;
-    line-height: 1.45;
-    opacity: .85;
-  }
+    h1{
+      font-family: "Barrio", system-ui, sans-serif;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1.1;
+      margin: 0 0 10px;
+    }
 
-  .after-controls{
-    margin-top: 10px;
-  }
+    .rainbow-title span{ display:inline-block; margin-right: .22em; }
 
-  .small-link{
-    color: #b7d1ff;
-    text-decoration: none;
-    font-size: 13px;
-    opacity: .9;
-  }
+    /* acá podría hacer que cambien al azar cada rato por ej */
+    .rainbow-title span:nth-child(1){ color:#DA3948; }
+    .rainbow-title span:nth-child(2){ color:#F7DA4D; }
+    .rainbow-title span:nth-child(3){ color:#438A4F; }
+    .rainbow-title span:nth-child(4){ color:#A0D5F2; }
+    .rainbow-title span:nth-child(5){ color:#B4747C; }
+    .rainbow-title span:nth-child(6){ color:#5E6769; }
+    .rainbow-title span:nth-child(7){ color:#E2C967; }
+    .rainbow-title span:nth-child(8){ color:#90BE6D; }
+    .rainbow-title span:nth-child(9){ color:#BC3F42; }
+    .rainbow-title span:nth-child(10){ color:#F7DC43; }
 
-  .small-link:hover{
-    text-decoration: underline;
-    opacity: 1;
-  }
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .intro{
+      margin: 0 0 14px;
+      max-width: 900px;
+      font-size: 14px;
+      line-height: 1.45;
+      opacity: .85;
+    }
+
+    .after-controls{
+      margin-top: 10px;
+    }
+
+    .small-link{
+      color: #b7d1ff;
+      text-decoration: none;
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    .small-link:hover{
+      text-decoration: underline;
+      opacity: 1;
+    }
+
     input, select {
-      background:#11131a; color:#e8e8e8; border:1px solid rgba(255,255,255,.12);
-      padding: 10px 12px; border-radius: 12px; outline: none;
+      background:#11131a;
+      color:#e8e8e8;
+      border:1px solid rgba(255,255,255,.12);
+      padding: 10px 12px;
+      border-radius: 12px;
+      outline: none;
     }
 
     input { flex: 1 1 260px; }
     select { flex: 0 0 220px; }
 
-    main { padding: 18px 16px 40px; }
+    main {
+      padding: 18px 16px 40px;
+      padding-bottom: 70px;
+    }
+
     .grid{
-        display:grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 1? 2? o con una opcion*/
-        gap: 18px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 1? 2? o con una opcion*/
+      gap: 18px;
     }
 
-    
-    @media (max-width: 900px){
-        .grid{ grid-template-columns: 1fr; }
-    }
     .card {
-      background:#2A3C54; border:1px solid rgba(255,255,255,.10); border-radius: 18px;
-      overflow:hidden; box-shadow: 0 8px 30px rgba(0,0,0,.25);
+      background: #2A3C54;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.25);
     }
-    .top { display:flex; gap:12px; padding: 14px; align-items:center; }
-    .logo {
-      width: 156px; height: 156px; border-radius: 42px; background:#2A3C54;
-      display:grid; place-items:center; overflow:hidden; flex: 0 0 156px;
-      border:1px solid #2A3C54;
-    }
-    .logo img { width: 100%; height: 100%; object-fit: cover; }
-    .meta { min-width: 0; }
-    .name { font-weight: 700; margin: 0; font-size: 16px; line-height: 1.2; }
-    .sub { margin: 4px 0 0; font-size: 13px; opacity:.85; display:flex; gap:10px; flex-wrap: wrap; }
-    .tag { padding: 2px 8px; border:1px solid rgba(255,255,255,.12); border-radius: 999px; }
-    .pal { display:grid; grid-template-columns: repeat(6, 1fr); gap: 0; }
-    .swatch {
-      position: relative; aspect-ratio: 1 / 1; cursor: pointer;
-      border-top: 1px solid rgba(255,255,255,.08);
-      border-right: 1px solid rgba(255,255,255,.08);
-    }
-    .swatch:nth-child(6n) { border-right: none; }
-    .swatch span {
-      position:absolute; left:8px; bottom:8px; font-size: 11px;
-      background: rgba(0,0,0,.35); padding: 2px 6px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.15);
-      backdrop-filter: blur(6px);
-    }
-    .footer { padding: 10px 14px 14px; display:flex; justify-content: space-between; gap:10px; align-items:center; }
-    .link { color:#b7d1ff; text-decoration:none; font-size: 13px; }
-    .count { font-size: 13px; opacity: .8; }
-    .toast {
-      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
-      background: rgba(20,22,30,.92); border:1px solid rgba(255,255,255,.14);
-      padding: 10px 12px; border-radius: 999px; font-size: 13px;
-      opacity: 0; pointer-events:none; transition: opacity .18s ease;
-    }
-    .toast.show { opacity: 1; }
-    
 
-    .modal { position: fixed; inset: 0; display: none; z-index: 9999; }
+    .name {
+      font-weight: 700;
+      margin: 0 0 6px;
+      font-size: 20px;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .sub {
+      margin: 0 0 18px;
+      font-size: 13px;
+      opacity: .85;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tag {
+      padding: 3px 9px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+    }
+
+    .ring-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 8px 0 22px;
+    }
+
+    .ring {
+      position: relative;
+      width: 380px;
+      height: 400px;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+    }
+
+    .logo-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 320px;
+      height: 320px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      background: #223247;
+      border: 6px solid rgba(255,255,255,.10);
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      z-index: 2;
+    }
+
+    .logo-center img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: zoom-in;
+    }
+
+    .swatch {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 88px;
+      height: 88px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 6px 16px rgba(0,0,0,.18);
+      cursor: pointer;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      overflow: hidden;
+      transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)));
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .swatch:hover {
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
+      z-index: 5;
+    }
+
+    .swatch.dir-up:hover {
+      transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y) - 14px)) scale(1.06);
+    }
+
+    .swatch.dir-down:hover {
+      transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y) + 14px)) scale(1.06);
+    }
+
+    .swatch.dir-left:hover {
+      transform: translate(calc(-50% + var(--x) - 14px), calc(-50% + var(--y))) scale(1.06);
+    }
+
+    .swatch.dir-right:hover {
+      transform: translate(calc(-50% + var(--x) + 14px), calc(-50% + var(--y))) scale(1.06);
+    }
+
+    .swatch span {
+      font-size: 10px;
+      background: rgba(0,0,0,.38);
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(6px);
+      margin-bottom: 6px;
+    }
+
+    .footer {
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .link {
+      color:#b7d1ff;
+      text-decoration:none;
+      font-size: 13px;
+    }
+
+    .count {
+      font-size: 13px;
+      opacity: .8;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(20,22,30,.92);
+      border:1px solid rgba(255,255,255,.14);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease;
+      z-index: 10000;
+    }
+
+    .toast.show { opacity: 1; }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 9999;
+    }
+
     .modal.show { display: block; }
 
     .modal__backdrop {
-        position: absolute; inset: 0;
-        background: rgba(0,0,0,.65);
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.65);
     }
 
     .modal__panel{
-        position: relative;
-        max-width: min(900px, 92vw);
-        max-height: 92vh;
-        margin: 4vh auto;
-        background: #0f1117;
-        border: 1px solid rgba(255,255,255,.12);
-        border-radius: 18px;
-        padding: 14px;
-        box-shadow: 0 18px 60px rgba(0,0,0,.45);
+      position: relative;
+      max-width: min(900px, 92vw);
+      max-height: 92vh;
+      margin: 4vh auto;
+      background: #0f1117;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
     }
 
     #logoModalImg{
-        display: block;
-        max-width: 100%;
-        max-height: calc(92vh - 60px);
-        margin: 0 auto;
-        object-fit: contain;
+      display: block;
+      max-width: 100%;
+      max-height: calc(92vh - 60px);
+      margin: 0 auto;
+      object-fit: contain;
     }
 
     .modal__close{
-        position: absolute;
-        top: 10px; right: 10px;
-        border: none;
-        background: transparent;
-        color: #e8e8e8;
-        font-size: 22px;
-        line-height: 1;
-        cursor: pointer;
-        padding: 0;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: none;
+      background: transparent;
+      color: #e8e8e8;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
     }
 
     .fab{
-        position: fixed;
-        right: 18px;
-        bottom: 18px;
-
-        width: auto;
-        height: auto;
-
-        background: transparent;
-        border: none;
-        padding: 0;
-        border-radius: 0;
-        box-shadow: none;
-        cursor: pointer;
-        z-index: 9998;
+      position: fixed;
+      right: 18px;
+      bottom: 72px;
+      width: auto;
+      height: auto;
+      background: transparent;
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+      cursor: pointer;
+      z-index: 9998;
     }
-    .fab{ bottom: 72px; }
+
     .fab img{
-        width: 48px;    
-        height: 48px;
-        display: block;
-        object-fit: contain;
+      width: 48px;
+      height: 48px;
+      display: block;
+      object-fit: contain;
     }
 
-    
     .modal__panel--pdf{
-        width: min(1100px, 94vw);
-        height: min(86vh, 900px);
-        padding: 10px;
+      width: min(1100px, 94vw);
+      height: min(86vh, 900px);
+      padding: 10px;
     }
 
     #pdfFrame{
-        width: 100%;
-        height: 100%;
-        border: 0;
-        border-radius: 14px;
-        background: #0b0c10;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 14px;
+      background: #0b0c10;
     }
+
     .fixed-footer{
-      position: fixed;     
+      position: fixed;
       left: 0;
       right: 0;
       bottom: 0;
@@ -225,35 +365,55 @@
       z-index: 9997;
     }
 
-  .footer-close{
-    position: absolute;
-    right: 15px;
-    top: 2px;
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-    color: white;
-  }
-   
-  .intro-btn img{
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-  }
+    .footer-close{
+      position: absolute;
+      right: 15px;
+      top: 2px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: white;
+    }
 
-    main{
-        padding-bottom: 70px; 
+    .intro-btn img{
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 900px){
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .ring {
+        width: 360px;
+        height: 360px;
+      }
+
+      .logo-center {
+        width: 190px;
+        height: 190px;
+      }
+
+      .swatch {
+        width: 58px;
+        height: 58px;
+        border-radius: 14px;
+      }
+
+      .swatch span {
+        font-size: 8px;
+        margin-bottom: 4px;
+      }
     }
   </style>
 </head>
 
-
 <body>
   <header>
-    
     <div class="wrap">
-     
       <h1 class="rainbow-title">
         <span>Paletas</span>
         <span>de</span>
@@ -266,6 +426,7 @@
         <span>Nacionales</span>
         <span>Argentinos</span>
       </h1>
+
       <p class="intro">
         La soberanía de un país esta en sus acentos, sabores, colores, en la fauna, la flora, en la gente que lo habita y la defiende. <br>
         Proyecto sin fines de lucro, con fines educativos y de investigación. probá las paletas acá:
@@ -273,16 +434,15 @@
           class="intro-btn"
           target="_blank"
           rel="noopener noreferrer">
-          <img src="logo_web.svg" alt="uavi logo" /> 
+          <img src="logo_web.svg" alt="uavi logo" />
         </a>
       </p>
+
       <!-- <a href="https://juanmacdonagh17.github.io/uavi/" class="logo-btn" aria-label="waves" target="_blank">
-          <img src="logo_web.svg" alt="uavi logo" />  
+          <img src="logo_web.svg" alt="uavi logo" />
       </a> -->
-      
+
       <div class="controls">
-
-
         <input id="q" placeholder="Buscar por nombre, región, provincia, tipo:" />
         <select id="region"><option value="">Todas las regiones</option></select>
         <select id="prov"><option value="">Todas las provincias</option></select>
@@ -292,7 +452,6 @@
       <div class="after-controls">
         <a class="small-link" href="#" target="_blank" rel="noreferrer">Importar a Python o R</a>
       </div>
-  </div>
     </div>
   </header>
 
@@ -316,49 +475,53 @@
   <button id="pdfFab" class="fab" type="button" aria-label="Abrir mapa (PDF)">
     <img src="mapa_arg.svg" alt="" />
   </button>
-    <div id="pdfModal" class="modal" aria-hidden="true">
+
+  <div id="pdfModal" class="modal" aria-hidden="true">
     <div class="modal__backdrop" data-close="1"></div>
     <div class="modal__panel modal__panel--pdf" role="dialog" aria-modal="true" aria-label="Mapa de Parques Nacionales (PDF)">
-        <button class="modal__close" type="button" data-close="1" aria-label="Cerrar">x</button>
-        <iframe
+      <button class="modal__close" type="button" data-close="1" aria-label="Cerrar">x</button>
+      <iframe
         id="pdfFrame"
         title="Mapa (PDF)"
         src="mapa_pn_arg.pdf"
         loading="lazy">
-        </iframe>
+      </iframe>
     </div>
-    </div>
-    <footer class="fixed-footer" id="site-footer">
-        <button class="footer-close" onclick="closeFooter()">×</button>
-        wokr in progress. todas las imagenes pertenecen a Jefatura de Gabinete de Ministros / Parques Nacionales Argentina. <br>
-        Con amor y respeto a la naturaleza. contacto: macjuan17@gmail.com
-    </footer>
-  <script>
+  </div>
 
+  <footer class="fixed-footer" id="site-footer">
+    <button class="footer-close" onclick="closeFooter()">×</button>
+    wokr in progress. todas las imagenes pertenecen a Jefatura de Gabinete de Ministros / Parques Nacionales Argentina. <br>
+    Con amor y respeto a la naturaleza. contacto: macjuan17@gmail.com
+  </footer>
+
+  <script>
     // path local al repo
     const CSV_PATH = "parques_data.csv";
 
     const REGION_ORDER = [ // orden de Norte a Sur
-        "Noroeste",
-        "Noreste",
-        "Centro",
-        "Patagonia",
-        "Patagonia Austral",
-        "Mar Argentino"
-        ];
+      "Noroeste",
+      "Noreste",
+      "Centro",
+      "Patagonia",
+      "Patagonia Austral",
+      "Mar Argentino"
+    ];
 
     const regionRank = (r) => {
-    const i = REGION_ORDER.indexOf(r);
-    return i === -1 ? 999 : i;
+      const i = REGION_ORDER.indexOf(r);
+      return i === -1 ? 999 : i;
     };
 
-    // función CSV parser 
+    // función CSV parser
     function parseCSV(text) {
       const rows = [];
       let row = [], cur = "", inQuotes = false;
-      for (let i = 0; i < text.length; i++) {   
-        const c = text[i], n = text[i+1];
-        if (c === '"' ) {
+
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i], n = text[i + 1];
+
+        if (c === '"') {
           if (inQuotes && n === '"') { cur += '"'; i++; }
           else inQuotes = !inQuotes;
         } else if (!inQuotes && c === ",") {
@@ -371,30 +534,41 @@
           cur += c;
         }
       }
-      if (cur.length || row.length) { row.push(cur); rows.push(row); }
+
+      if (cur.length || row.length) {
+        row.push(cur);
+        rows.push(row);
+      }
+
       const header = rows.shift().map(h => h.trim());
+
       return rows
         .filter(r => r.some(x => String(x).trim() !== ""))
         .map(r => Object.fromEntries(header.map((h, idx) => [h, (r[idx] ?? "").trim()])));
     }
 
     function uniq(arr) {
-      return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+      return [...new Set(arr.filter(Boolean))].sort((a, b) => a.localeCompare(b));
     }
 
-    function norm(s) { return (s ?? "").toLowerCase(); }
+    function norm(s) {
+      return (s ?? "").toLowerCase();
+    }
 
     // funciones para los colores y hex
-
     function pickColorFields(obj) {
-     
       const keys = Object.keys(obj);
-      const cKeys = keys.filter(k => /^c\d+$/i.test(k)).sort((a,b)=>parseInt(a.slice(1))-parseInt(b.slice(1)));
+
+      const cKeys = keys
+        .filter(k => /^c\d+$/i.test(k))
+        .sort((a, b) => parseInt(a.slice(1)) - parseInt(b.slice(1)));
+
       if (cKeys.length) return cKeys.map(k => obj[k]).filter(Boolean);
 
       const maybeHex = keys
         .filter(k => /color|colour|hex/i.test(k))
         .flatMap(k => obj[k].split(/[\s;|]+/).filter(Boolean));
+
       if (maybeHex.length) return maybeHex;
 
       // fallback
@@ -407,7 +581,7 @@
       const t = s.trim();
       if (/^#[0-9a-f]{6}$/i.test(t)) return t.toUpperCase();
       if (/^[0-9a-f]{6}$/i.test(t)) return ("#" + t).toUpperCase();
-      return t; 
+      return t;
     }
 
     function toast(msg) {
@@ -415,34 +589,38 @@
       el.textContent = msg;
       el.classList.add("show");
       clearTimeout(toast._t);
-      toast._t = setTimeout(()=>el.classList.remove("show"), 900);
+      toast._t = setTimeout(() => el.classList.remove("show"), 900);
     }
 
     async function copy(text) {
-      try { await navigator.clipboard.writeText(text); toast(`Copied ${text}`); }
-      catch { toast("Copy failed"); }
+      try {
+        await navigator.clipboard.writeText(text);
+        toast(`Copied ${text}`);
+      } catch {
+        toast("Copy failed");
+      }
     }
 
     // app con main logic
-
     let DATA = [];
 
     function renderFilters() {
       const regions = uniq(DATA.map(d => d["Región"] || d["Region"]))
-        .sort((a,b) => regionRank(a) - regionRank(b) || a.localeCompare(b));
-      const provs   = uniq(DATA.map(d => d["Provincia"]));
-      const tipos   = uniq(DATA.map(d => d["Tipo"]));
+        .sort((a, b) => regionRank(a) - regionRank(b) || a.localeCompare(b));
+
+      const provs = uniq(DATA.map(d => d["Provincia"]));
+      const tipos = uniq(DATA.map(d => d["Tipo"]));
 
       const selR = document.getElementById("region");
       const selP = document.getElementById("prov");
       const selT = document.getElementById("tipo");
 
       for (const v of regions) selR.append(new Option(v, v));
-      for (const v of provs)   selP.append(new Option(v, v));
-      for (const v of tipos)   selT.append(new Option(v, v));
+      for (const v of provs) selP.append(new Option(v, v));
+      for (const v of tipos) selT.append(new Option(v, v));
     }
 
-    // filtros 
+    // filtros
     function matchesFilters(d) {
       const q = norm(document.getElementById("q").value);
       const r = document.getElementById("region").value;
@@ -454,51 +632,75 @@
       if (t && d["Tipo"] !== t) return false;
 
       if (!q) return true;
+
       const blob = [
         d["Nombre"], d["Tipo"], d["Región"] || d["Region"], d["Provincia"]
       ].map(norm).join(" | ");
+
       return blob.includes(q);
+    }
+
+    function buildRingSwatches(colors) {
+      const total = colors.length;
+      const radius = 170;
+
+      return colors.map((c, i) => {
+        const angle = (i / total) * Math.PI * 2 - Math.PI / 2;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+
+        let dirClass = "";
+        if (Math.abs(x) > Math.abs(y)) {
+          dirClass = x > 0 ? "dir-right" : "dir-left";
+        } else {
+          dirClass = y > 0 ? "dir-down" : "dir-up";
+        }
+
+        return `
+          <div
+            class="swatch ${dirClass}"
+            style="--x:${x}px; --y:${y}px; background:${c};"
+            data-hex="${c}"
+          >
+            <span>${c}</span>
+          </div>
+        `;
+      }).join("");
     }
 
     // func. para los html de cada tarjeta
     function cardHTML(d) {
       const nombre = d["Nombre"] || "(Unnamed)";
       const tipo = d["Tipo"] || "";
-      const region = d["Región"] || d["Region"] || ""; // me puedo comer varias tildes
+      const region = d["Región"] || d["Region"] || "";
       const prov = d["Provincia"] || "";
       const logo = d["Logo"] || "";
-      const link = d["Link"] || ""; // no anda?? tenia el csv duplicado... 
+      const link = d["Link"] || "";
 
       const colorsRaw = pickColorFields(d).slice(0, 12).map(ensureHex);
-      const colors = colorsRaw.length ? colorsRaw : Array.from({length:12}, ()=>"#000000");
-
-      const logoHTML = logo
-            ? `<img class="park-logo" src="${logo}" alt="${nombre} logo" loading="lazy" data-logo="${logo}" style="cursor: zoom-in" onerror="this.remove();">`
-        : `<span style="opacity:.7;font-size:11px;">logo</span>`;
+      const colors = colorsRaw.length ? colorsRaw : Array.from({length:12}, () => "#000000");
 
       const tags = [tipo, region, prov].filter(Boolean)
         .map(x => `<span class="tag">${x}</span>`).join("");
 
-      const swatches = colors.map(c => `
-        <div class="swatch" style="background:${c}" data-hex="${c}">
-          <span>${c}</span>
-        </div>
-      `).join("");
-
       const linkHTML = link
-        ? `<a class="link" href="${link}" target="_blank" rel="noreferrer">Ficha del área protegida | Argentina.gob.ar</a>`
+        ? `<a class="link" href="${link}" target="_blank" rel="noopener noreferrer">Ficha del área protegida | Argentina.gob.ar</a>`
         : `<span style="opacity:.6;font-size:13px;">No link???</span>`;
 
       return `
         <article class="card">
-          <div class="top">
-            <div class="logo">${logoHTML}</div>
-            <div class="meta">
-              <p class="name">${nombre}</p>
-              <p class="sub">${tags}</p>
+          <p class="name">${nombre}</p>
+          <p class="sub">${tags}</p>
+
+          <div class="ring-wrap">
+            <div class="ring">
+              ${buildRingSwatches(colors)}
+              <div class="logo-center">
+                <img class="park-logo" src="${logo}" alt="${nombre} logo" loading="lazy" data-logo="${logo}" onerror="this.remove();">
+              </div>
             </div>
           </div>
-          <div class="pal">${swatches}</div>
+
           <div class="footer">
             ${linkHTML}
             <a class="link" href="#" data-copy="${colors.join(', ')}">Copiar colores</a>
@@ -509,90 +711,91 @@
 
     // funciones para los logos grandes
     function openLogoModal(src, altText) {
-        const modal = document.getElementById("logoModal");
-        const img = document.getElementById("logoModalImg");
-        img.src = src;
-        img.alt = altText || "Logo preview";
-        modal.classList.add("show");
-        modal.setAttribute("aria-hidden", "false");
+      const modal = document.getElementById("logoModal");
+      const img = document.getElementById("logoModalImg");
+      img.src = src;
+      img.alt = altText || "Logo preview";
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
     }
 
     function closeLogoModal() {
-        const modal = document.getElementById("logoModal");
-        const img = document.getElementById("logoModalImg");
-        modal.classList.remove("show");
-        modal.setAttribute("aria-hidden", "true");
-        img.src = "";
+      const modal = document.getElementById("logoModal");
+      const img = document.getElementById("logoModalImg");
+      modal.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+      img.src = "";
     }
 
     // funcion para el render de todo
     function render() {
-    const filtered = DATA
+      const filtered = DATA
         .filter(matchesFilters)
         .sort((a, b) => {
-        const ra = a["Región"] || a["Region"] || "";
-        const rb = b["Región"] || b["Region"] || "";
+          const ra = a["Región"] || a["Region"] || "";
+          const rb = b["Región"] || b["Region"] || "";
 
-        // custom order por región
-        const byRegion = regionRank(ra) - regionRank(rb);
-        if (byRegion !== 0) return byRegion;
+          // custom order por región
+          const byRegion = regionRank(ra) - regionRank(rb);
+          if (byRegion !== 0) return byRegion;
 
-        // alfabetico
-        return (a["Nombre"] || "").localeCompare(b["Nombre"] || "");
+          // alfabetico
+          return (a["Nombre"] || "").localeCompare(b["Nombre"] || "");
         });
 
-    // esto lo debería mostrar de forma más dinamica     
-    // document.getElementById("count").textContent = `${filtered.length} / ${DATA.length} parks`;
+      // esto lo debería mostrar de forma más dinamica
+      // document.getElementById("count").textContent = `${filtered.length} / ${DATA.length} parks`;
 
-    const grid = document.getElementById("grid");
-    grid.innerHTML = filtered.map(cardHTML).join("");
+      const grid = document.getElementById("grid");
+      grid.innerHTML = filtered.map(cardHTML).join("");
 
-    // copy swatch or full palette -> funciona en uavi para probar palletes
-    grid.querySelectorAll(".swatch").forEach(el => {
+      // copy swatch or full palette -> funciona en uavi para probar palletes
+      grid.querySelectorAll(".swatch").forEach(el => {
         el.addEventListener("click", () => copy(el.dataset.hex));
-    });
+      });
 
-    grid.querySelectorAll("[data-copy]").forEach(a => {
+      grid.querySelectorAll("[data-copy]").forEach(a => {
         a.addEventListener("click", (e) => {
-        e.preventDefault();
-        copy(a.dataset.copy);
+          e.preventDefault();
+          copy(a.dataset.copy);
         });
-    });
+      });
 
-    // open and close logos (big, acá tengo que mejorar y agregar cosas. por ahí añadir descripción?)
-
-    grid.querySelectorAll(".park-logo").forEach(img => {
+      // open and close logos (big, acá tengo que mejorar y agregar cosas. por ahí añadir descripción?)
+      grid.querySelectorAll(".park-logo").forEach(img => {
         img.addEventListener("click", () => openLogoModal(img.dataset.logo, img.alt));
-    });
-    document.getElementById("logoModal").querySelectorAll("[data-close]")
-    .forEach(el => el.addEventListener("click", closeLogoModal));
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeLogoModal();
-    });
+      });
     }
 
     // abrir y cerrar el PDF
     function openPdfModal() {
-        const modal = document.getElementById("pdfModal");
-        modal.classList.add("show");
-        modal.setAttribute("aria-hidden", "false");
+      const modal = document.getElementById("pdfModal");
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
     }
+
     function closePdfModal() {
-        const modal = document.getElementById("pdfModal");
-        modal.classList.remove("show");
-        modal.setAttribute("aria-hidden", "true");
+      const modal = document.getElementById("pdfModal");
+      modal.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
     }
 
     document.getElementById("pdfFab").addEventListener("click", openPdfModal);
 
     document.getElementById("pdfModal").querySelectorAll("[data-close]").forEach(el => {
-    el.addEventListener("click", closePdfModal);
+      el.addEventListener("click", closePdfModal);
+    });
+
+    document.getElementById("logoModal").querySelectorAll("[data-close]").forEach(el => {
+      el.addEventListener("click", closeLogoModal);
     });
 
     document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closePdfModal();
+      if (e.key === "Escape") {
+        closeLogoModal();
+        closePdfModal();
+      }
     });
-
 
     async function init() {
       const res = await fetch(CSV_PATH);
@@ -600,14 +803,18 @@
       if (!res.ok) throw new Error(`Failed to fetch ${CSV_PATH}`);
       const text = await res.text();
       DATA = parseCSV(text);
+
       // console.log("header keys:", Object.keys(DATA[0] || {}));
       // console.log("row0 Link:", DATA[0]?.Link);
       // console.log("row0 full:", DATA[0]);
+
       renderFilters();
+
       ["q","region","prov","tipo"].forEach(id => {
         document.getElementById(id).addEventListener("input", render);
         document.getElementById(id).addEventListener("change", render);
       });
+
       render();
     }
 
@@ -616,13 +823,10 @@
         `<div style="opacity:.85">Error loading CSV: ${String(err.message || err)}</div>`;
     });
 
-
-    
-  function closeFooter() {
-    const f = document.getElementById("site-footer");
-    if (f) f.style.display = "none";
-  }
-
+    function closeFooter() {
+      const f = document.getElementById("site-footer");
+      if (f) f.style.display = "none";
+    }
   </script>
 </body>
 </html>

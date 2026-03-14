@@ -642,7 +642,7 @@
 
     function buildRingSwatches(colors) {
       const total = colors.length;
-      const radius = 170;
+      const radius = window.innerWidth <= 700 ? 115 : 170; // radio celulares?
 
       return colors.map((c, i) => {
         const angle = (i / total) * Math.PI * 2 - Math.PI / 2;

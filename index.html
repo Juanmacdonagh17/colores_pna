@@ -447,6 +447,8 @@
         <select id="region"><option value="">Todas las regiones</option></select>
         <select id="prov"><option value="">Todas las provincias</option></select>
         <select id="tipo"><option value="">Todos los tipos</option></select>
+        <select id="colorBase"><option value="">Todos los colores</option></select>
+
       </div>
 
       <div class="after-controls">
@@ -498,6 +500,7 @@
   <script>
     // path local al repo
     const CSV_PATH = "parques_data.csv";
+    const COLOR_CLASS_PATH = "colors_classified.csv";
 
     const REGION_ORDER = [ // orden de Norte a Sur
       "Noroeste",
@@ -546,6 +549,17 @@
         .filter(r => r.some(x => String(x).trim() !== ""))
         .map(r => Object.fromEntries(header.map((h, idx) => [h, (r[idx] ?? "").trim()])));
     }
+
+    function loadColorMap(rows) {  /* colores individuales x tipo */
+      COLOR_MAP = Object.fromEntries(
+        rows.map(r => [
+          ensureHex(r.hex_color || r.Hex || r.color || ""),
+          (r.base_color || r.base || "").trim().toLowerCase()
+        ])
+      );
+    }
+
+
 
     function uniq(arr) {
       return [...new Set(arr.filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -601,8 +615,26 @@
       }
     }
 
+    function renderColorBaseFilter() {
+      const sel = document.getElementById("colorBase");
+      const bases = [...new Set(Object.values(COLOR_MAP).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b));
+
+      for (const v of bases) {
+        sel.append(new Option(v[0].toUpperCase() + v.slice(1), v));
+      }
+    }
+
+    function getCardColors(d) {
+      return pickColorFields(d)
+        .slice(0, 12)
+        .map(ensureHex)
+        .filter(Boolean);
+    }
     // app con main logic
     let DATA = [];
+
+    let COLOR_MAP = {};   // { "#FF0000": "rojo", ... }
 
     function renderFilters() {
       const regions = uniq(DATA.map(d => d["Región"] || d["Region"]))
@@ -626,10 +658,17 @@
       const r = document.getElementById("region").value;
       const p = document.getElementById("prov").value;
       const t = document.getElementById("tipo").value;
+      const cb = document.getElementById("colorBase").value;
 
       if (r && (d["Región"] || d["Region"]) !== r) return false;
       if (p && d["Provincia"] !== p) return false;
       if (t && d["Tipo"] !== t) return false;
+
+      if (cb) {
+        const colors = getCardColors(d);
+        const hasMatchingBase = colors.some(c => COLOR_MAP[c] === cb);
+        if (!hasMatchingBase) return false;
+      }
 
       if (!q) return true;
 
@@ -642,7 +681,9 @@
 
     function buildRingSwatches(colors) {
       const total = colors.length;
-      const radius = window.innerWidth <= 700 ? 110 : 170; // radio celulares?
+      if (!total) return "";
+
+      const radius = window.innerWidth <= 700 ? 115 : 170; // radio celulares?
 
       return colors.map((c, i) => {
         const angle = (i / total) * Math.PI * 2 - Math.PI / 2;
@@ -677,8 +718,17 @@
       const logo = d["Logo"] || "";
       const link = d["Link"] || "";
 
-      const colorsRaw = pickColorFields(d).slice(0, 12).map(ensureHex);
-      const colors = colorsRaw.length ? colorsRaw : Array.from({length:12}, () => "#000000");
+      const selectedBase = document.getElementById("colorBase").value;
+
+      const colorsAll = getCardColors(d);
+
+      const colors = selectedBase
+        ? colorsAll.filter(c => COLOR_MAP[c] === selectedBase)
+        : colorsAll;
+
+      const finalColors = colors.length
+        ? colors
+        : Array.from({ length: 12 }, () => "#000000");
 
       const tags = [tipo, region, prov].filter(Boolean)
         .map(x => `<span class="tag">${x}</span>`).join("");
@@ -694,7 +744,7 @@
 
           <div class="ring-wrap">
             <div class="ring">
-              ${buildRingSwatches(colors)}
+              ${buildRingSwatches(finalColors)}
               <div class="logo-center">
                 <img class="park-logo" src="${logo}" alt="${nombre} logo" loading="lazy" data-logo="${logo}" onerror="this.remove();">
               </div>
@@ -798,19 +848,28 @@
     });
 
     async function init() {
-      const res = await fetch(CSV_PATH);
-      // const res = await fetch(`${CSV_PATH}?v=${Date.now()}`); // cambiar esto ?
-      if (!res.ok) throw new Error(`Failed to fetch ${CSV_PATH}`);
-      const text = await res.text();
-      DATA = parseCSV(text);
+      const [resData, resColors] = await Promise.all([
+        fetch(CSV_PATH),
+        fetch(COLOR_CLASS_PATH)
+      ]);
 
-      // console.log("header keys:", Object.keys(DATA[0] || {}));
-      // console.log("row0 Link:", DATA[0]?.Link);
-      // console.log("row0 full:", DATA[0]);
+      if (!resData.ok) throw new Error(`Failed to fetch ${CSV_PATH}`);
+      if (!resColors.ok) throw new Error(`Failed to fetch ${COLOR_CLASS_PATH}`);
+
+      const [textData, textColors] = await Promise.all([
+        resData.text(),
+        resColors.text()
+      ]);
+
+      DATA = parseCSV(textData);
+
+      const colorRows = parseCSV(textColors);
+      loadColorMap(colorRows);
 
       renderFilters();
+      renderColorBaseFilter();
 
-      ["q","region","prov","tipo"].forEach(id => {
+      ["q", "region", "prov", "tipo", "colorBase"].forEach(id => {
         document.getElementById(id).addEventListener("input", render);
         document.getElementById(id).addEventListener("change", render);
       });

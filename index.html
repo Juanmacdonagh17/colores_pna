@@ -350,6 +350,34 @@
       background: #0b0c10;
     }
 
+    .tab-btn {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #e8e8e8;
+      padding: 6px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .tab-btn.active {
+      background: #e8e8e8;
+      color: #0f1117;
+    }
+
+    .code-block {
+      background: #0a0b10;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 12px;
+      padding: 14px;
+      overflow: auto;
+      max-height: 60vh;
+      font-size: 12px;
+      font-family: monospace;
+      white-space: pre;
+      color: #e8e8e8;
+    }
+
     .fixed-footer{
       position: fixed;
       left: 0;
@@ -452,7 +480,7 @@
       </div>
 
       <div class="after-controls">
-        <a class="small-link" href="#" target="_blank" rel="noreferrer">Importar a Python o R</a>
+        <a class="small-link" href="#" id="openCodeModal">Importar a Python o R</a>
       </div>
     </div>
   </header>
@@ -488,6 +516,19 @@
         src="mapa_pn_arg.pdf"
         loading="lazy">
       </iframe>
+    </div>
+  </div>
+
+  <div id="codeModal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" id="codeModalBackdrop"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" style="max-width:min(700px,92vw)">
+      <button class="modal__close" type="button" id="closeCodeModal">x</button>
+      <div style="display:flex;gap:8px;margin-bottom:12px;align-items:center">
+        <button class="tab-btn active" id="tabPy" onclick="switchTab('py')">Python</button>
+        <button class="tab-btn" id="tabR" onclick="switchTab('r')">R</button>
+        <button class="tab-btn" onclick="copy(document.getElementById('codeBlock').textContent)" style="margin-left:auto">Copiar</button>
+      </div>
+      <div class="code-block" id="codeBlock"></div>
     </div>
   </div>
 
@@ -886,6 +927,55 @@
       const f = document.getElementById("site-footer");
       if (f) f.style.display = "none";
     }
+
+    // Python / R export
+    let currentTab = "py";
+
+    function generatePython(data) {
+      const entries = data.map(d => {
+        const colors = getCardColors(d).map(c => `"${c}"`).join(", ");
+        return `    "${d["Nombre"]}": [${colors}]`;
+      });
+      return `paletas = {\n${entries.join(",\n")}\n}`;
+    }
+
+    function generateR(data) {
+      const entries = data.map(d => {
+        const colors = getCardColors(d).map(c => `"${c}"`).join(", ");
+        return `  "${d["Nombre"]}" = c(${colors})`;
+      });
+      return `paletas <- list(\n${entries.join(",\n")}\n)`;
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      const filtered = DATA.filter(matchesFilters);
+      document.getElementById("codeBlock").textContent =
+        tab === "py" ? generatePython(filtered) : generateR(filtered);
+      document.getElementById("tabPy").classList.toggle("active", tab === "py");
+      document.getElementById("tabR").classList.toggle("active", tab === "r");
+    }
+
+    function openCodeModal() {
+      const modal = document.getElementById("codeModal");
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+      switchTab(currentTab);
+    }
+
+    function closeCodeModal() {
+      const modal = document.getElementById("codeModal");
+      modal.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    document.getElementById("openCodeModal").addEventListener("click", (e) => {
+      e.preventDefault();
+      openCodeModal();
+    });
+
+    document.getElementById("closeCodeModal").addEventListener("click", closeCodeModal);
+    document.getElementById("codeModalBackdrop").addEventListener("click", closeCodeModal);
   </script>
 </body>
 </html>
